@@ -3,8 +3,6 @@ import gnu.trove.list.array.TDoubleArrayList;
 import gnu.trove.map.hash.*;
 import gnu.trove.procedure.TIntProcedure;
 import gnu.trove.procedure.TShortProcedure;
-import gnu.trove.set.hash.TIntHashSet;
-import gnu.trove.set.hash.TShortHashSet;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +11,9 @@ import java.util.Scanner;
 import static java.lang.Math.sqrt;
 
 
-public class SlopeOne
+
+
+public class SlopeOne extends NetflixPrize
 {
     TIntObjectHashMap<TShortByteHashMap> trainingData;
     TShortObjectHashMap<TIntByteHashMap> testData;
@@ -23,8 +23,7 @@ public class SlopeOne
 
     public SlopeOne(TIntObjectHashMap<TShortByteHashMap> d, int n)
     {
-        trainingData = d;
-        numItems = n;
+        super(d, n);
     }
 
     public double predictOne(final int userID, final short itemID)
@@ -32,8 +31,7 @@ public class SlopeOne
         final double[] diffs = new double[numItems + 1];
         final int[] freqs = new int[numItems + 1];
         trainingData.forEachKey(new TIntProcedure() {
-            public boolean execute(final int user) {
-                if (trainingData.get(user).containsKey(itemID)) {
+                    public boolean execute(final int user) {if (trainingData.get(user).containsKey(itemID)) {
                     trainingData.get(user).forEachKey(new TShortProcedure() {
                         public boolean execute(short otherItem) {
                             if (otherItem != itemID) {
