@@ -17,21 +17,7 @@ public class Main {
         //heapSize = Runtime.getRuntime().freeMemory();
         System.out.println("Heap Size = " + heapSize);
         NetflixPrizeJMLL np = new NetflixPrizeJMLL(dataDirectory, probeSet, NUMBEROFMOVIES);
-        //ProbabilisticScheme ps = new ProbabilisticScheme(processFilesFromFolder(dataDirectory), 17770);
-        //SlopeOne so = new SlopeOne(processFilesFromFolder(dataDirectory), 17770);
-        //ps.getTestSet(probeSet);
-        //so.predictTestRatings();
-        //System.out.println("RMSE = " + so.countRMSE());
-        /*
-        while (true)
-        {
-            System.out.println("Enter userID and itemID to predict");
-            Scanner sc = new Scanner(System.in);
-            int userID = sc.nextInt();
-            short itemID = sc.nextShort();
-            System.out.println(so.predictOne(userID, itemID) + " " + so.trainingData.get(userID).get(itemID));
-        }
-        */
+
 
         /*
         while (true)
@@ -54,20 +40,23 @@ public class Main {
             Scanner sc = new Scanner(System.in);
             short condAsset = sc.nextShort();
             byte condRating = sc.nextByte();
+            long start = System.nanoTime();
             double sum = 0;
             for (short i = 1; i <= np.numItems; i++) {
                 for (byte j = 1; j <= 5; j++) {
                     sum = np.countProb(i, j, condAsset, condRating);
                     if (i % 1000 == 0) {
-                        System.out.println(sum);
+                        System.out.println(i);
                     }
                 }
             }
+            long elapsedTime = System.nanoTime() - start;
+            System.out.println("Time elapsed: " + elapsedTime);
             System.out.println(sum);
         }
     }
 
-    public static TIntObjectHashMap<TShortByteHashMap> processFilesFromFolder(File folder) throws FileNotFoundException
+  /*  public static TIntObjectHashMap<TShortByteHashMap> processFilesFromFolder(File folder) throws FileNotFoundException
     {
         short movieID;
         int userID;
@@ -96,4 +85,5 @@ public class Main {
         }
         return dataSet;
     }
+    */
 }
